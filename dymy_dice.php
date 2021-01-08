@@ -146,11 +146,19 @@ function dymy_dice_do(&$post)
 	}
 
 
-		// Random board generator by Różowa Fasolka
+	// Random board generator by Różowa Fasolka
 
 	if (preg_match("#/board#", $msg, $m))
 	{
 		$msg = preg_replace("#/board#", get_random_board(), $msg, 1);
+	}
+
+
+	// Random magic jenga generator by Różowa Fasolka
+
+	if (preg_match("#/jenga#", $msg, $m))
+	{
+	$msg = preg_replace("#/jenga#", get_jenga_effect(), $msg, 1);
 	}
 	
 		// Simple dice by Dylan Myers
@@ -1666,7 +1674,7 @@ function get_random_explode()
                     
             
                     
-        // Function for random board generator by Różowa Fasolka
+        // Function for random board generator by Zielona Fasolka & Różowa Fasolka
 
 function get_random_board()
     {
@@ -1730,5 +1738,61 @@ function get_random_board()
         
         return $board;
     }
+                    
+            
+                    
+	// Function for magic jenga game generator by Różowa Fasolka
+
+function get_jenga_effect()
+	{
+		$k6 = array(
+					"<center><b>Kość:</b> 1<br/></center>",
+					"<center><b>Kość:</b> 2<br/></center>",
+					"<center><b>Kość:</b> 3<br/></center>",
+					"<center><b>Kość:</b> 4<br/></center>",
+					"<center><b>Kość:</b> 5<br/></center>",
+					"<center><b>Kość:</b> 6<br/></center>"
+				);
+
+		$effect = array(
+					"<b>Efekt:</b> Wieża zmieniła kolor! Osoba wyciągająca kolejny klocek decyduje, na jaki.",
+					"<b>Efekt:</b> Wyciągnięte klocki zaczynają unosić się w powietrzu, a chwilę później śmigają już wokół grających jak wyjątkowo natrętne muchy!",
+					"<b>Efekt:</b> Wieża zaczęła lewitować kilka centymetrów nad stołem, co zwykle trwa chwilę lub dwie. Powodzenia z wyciąganiem następnych klocków!",
+					"<b>Efekt:</b> Wieża zakołysała się gwałtownie! Przewróci się, czy się nie przewróci?! Póki co stoi, ale nie warto jej ufać!",
+					"<b>Efekt:</b> Wieża wygląda podejrzanie stabilnie... Masz przeczucie, że kolejny ruch nie skończy się dobrze!",
+					"<b>Efekt:</b> Czy ktoś właśnie trącił wieżę?! Kto to był, przyznawać się! Jesteś pewien, że tym razem nie zakołysała się sama z siebie!",
+					"<b>Efekt:</b> Jeden z klocków zaczyna samodzielnie wysuwać się ze struktury... Pomożesz mu, czy udasz, że nie widzisz?",
+					"<b>Efekt:</b> Losowe klocki wewnątrz struktury zaczynają podświetlać się i gasnąć jak lampki na yule'owej choince! Nie trwa to długo, ale potrafi nieźle rozproszyć!",
+					"<b>Efekt:</b> Wieża obraca się! Teraz góra jest dołem, a dół górą! Miałeś upatrzony klocek, który wyciągniesz? To już twój problem.",
+					"<b>Efekt:</b> Wieża podskakuje w miejscu, a kilka klocków wewnątrz struktury zmienia swoje położenie."
+				);
+		
+
+		$dice = $k6[array_rand( $k6, 1 )];
+		$task = $effect[array_rand( $effect, 1 )];
+
+		if ($dice == "<center><b>Kość:</b> 1<br/></center>")
+		{
+			$task = "<b>Efekt:</b> Nie, tylko nie ten klocek! Wieża rozsypuje się z hukiem, strzelając drewienkami na wszystkie strony!";
+		} 
+		
+		else if ($dice == "<center><b>Kość:</b> 2<br/></center>")
+		{
+			$task = "<b>Efekt:</b> To był ryzykowny manewr! Wieża chwieje się niepokojąco... Kolejny wyciągający rozbija wieżę, jeśli wyrzuci 1 lub 2 na kości! Wszystkie pozostałe efekty działają jak dotychczas.";
+		} 
+		
+		else if ($dice == "<center><b>Kość:</b> 6<br/></center>")
+		{
+			$task = "<b>Efekt:</b> Kto by pomyślał, że mniej klocków może POMÓC ze stabilizacją wieży? Nic się nie dzieje, jeśli kolejny wyciągający wyrzuci 1 na kości. Wszystkie pozostałe efekty działają jak dotychczas!";
+		} 
+		
+		else { $task; }
+
+			
+		$jenga = $dice.$task;
+
+	return $jenga;
+
+	}
 
 ?>
